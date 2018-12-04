@@ -103,14 +103,15 @@
 
         <div class="form-group row">
           <div class="col-sm-6 offset-md-3">
-            <div class="alert alert-primary d-none" id="length-info"></div>
+            <div class="alert alert-primary text-center d-none" id="length-info"></div>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-sm-2 offset-md-5">
             <button type="submit"
-                    class="btn btn-primary btn-block">Calculate</button>
+                    class="btn btn-primary btn-block"
+                    id="submit">Calculate</button>
           </div>
         </div>
       </form>
@@ -133,6 +134,7 @@
     <script>
       function calc() {
         $('#length-info').addClass('d-none');
+        $('#submit').addClass('disabled');
         var url = 'https://0jx5p7p540.execute-api.eu-west-1.amazonaws.com/staging/length';
         var params = [
             'r_borehole',
@@ -150,6 +152,7 @@
         $.get(url + '?' + params, function(data) {
           $('#length-info').text('Borehole length should be: ' + data.length + ' meters');
           $('#length-info').removeClass('d-none');
+          $('#submit').removeClass('disabled');
         });
         return false;
       }
