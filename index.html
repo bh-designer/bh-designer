@@ -97,7 +97,7 @@
             <input type="text"
                    class="form-control"
                    id="COP"
-                   value="16000">
+                   value="3">
           </div>
         </div>
 
@@ -133,7 +133,21 @@
     <script>
       function calc() {
         $('#length-info').addClass('d-none');
-        $.get('https://0jx5p7p540.execute-api.eu-west-1.amazonaws.com/staging/length?r_borehole=70e-3&R_borehole=0.1&E_annual=16000&num_years=20&COP=3&lat=65&lon=25', function(data) {
+        var url = 'https://0jx5p7p540.execute-api.eu-west-1.amazonaws.com/staging/length';
+        var params = [
+            'r_borehole',
+            'R_borehole',
+            'E_annual',
+            'num_years',
+            'COP',
+            'lat',
+            'lon'
+          ]
+          .map(function(label){
+            return label + '=' + $('#' + label).val();
+          })
+          .join('&');
+        $.get(url + '?' + params, function(data) {
           $('#length-info').text('Borehole length should be: ' + data.length + ' meters');
           $('#length-info').removeClass('d-none');
         });
